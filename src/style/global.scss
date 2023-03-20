@@ -1,0 +1,14 @@
+// 全局样式
+
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+}
