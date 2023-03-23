@@ -160,7 +160,7 @@ const getHotListsData = (type, isNew = false) => {
         scrollbarRef.value.scrollTo({ position: "top", behavior: "smooth" });
       }
     } else {
-      $message.error(res.message);
+      $message.error(res.title + res.message);
     }
   });
 };
