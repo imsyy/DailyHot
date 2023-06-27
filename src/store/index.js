@@ -79,6 +79,12 @@ export const mainStore = defineStore("main", {
           order: 11,
           show: true,
         },
+        {
+          label: "英雄联盟",
+          value: "lol",
+          order: 12,
+          show: true,
+        },
       ],
       // 链接跳转方式
       linkOpenType: "open",
