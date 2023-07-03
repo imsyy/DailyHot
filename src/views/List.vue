@@ -246,6 +246,11 @@ onMounted(() => {
       display: flex;
       align-items: center;
     }
+    :deep(.n-card__content) {
+      @media (max-width: 740px) {
+        padding: 0 12px 12px 12px;
+      }
+    }
     .header {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -285,6 +290,28 @@ onMounted(() => {
             content: " 条 ·";
             margin-right: 6px;
           }
+        }
+      }
+      @media (max-width: 740px) {
+        display: flex;
+        justify-content: flex-start;
+        .logo {
+          img {
+            width: 32px;
+            height: 32px;
+          }
+        }
+        .name {
+          margin-left: 12px;
+          align-items: flex-end;
+          flex-direction: row;
+          .subtitle {
+            margin-bottom: 3px;
+            margin-left: 8px;
+          }
+        }
+        .data {
+          margin-left: auto;
         }
       }
     }
@@ -351,6 +378,14 @@ onMounted(() => {
       }
       .pagination {
         margin: 20px 0;
+      }
+      @media (max-width: 740px) {
+        :deep(.n-list-item) {
+          padding: 12px 10px;
+          .n-list-item__prefix {
+            margin-right: 12px;
+          }
+        }
       }
     }
   }

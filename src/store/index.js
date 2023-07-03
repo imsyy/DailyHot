@@ -5,6 +5,7 @@ export const mainStore = defineStore("main", {
     return {
       // 系统主题
       siteTheme: "light",
+      siteThemeAuto: true,
       // 新闻类别
       newsArr: [
         {
@@ -20,63 +21,69 @@ export const mainStore = defineStore("main", {
           show: true,
         },
         {
+          label: "抖音",
+          value: "douyin",
+          order: 2,
+          show: true,
+        },
+        {
           label: "知乎",
           value: "zhihu",
-          order: 2,
+          order: 3,
           show: true,
         },
         {
           label: "36氪",
           value: "36kr",
-          order: 3,
+          order: 4,
           show: true,
         },
         {
           label: "百度",
           value: "baidu",
-          order: 4,
+          order: 5,
           show: true,
         },
         {
           label: "少数派",
           value: "sspai",
-          order: 5,
+          order: 6,
           show: true,
         },
         {
           label: "IT之家",
           value: "ithome",
-          order: 6,
+          order: 7,
           show: true,
         },
         {
           label: "澎湃新闻",
           value: "thepaper",
-          order: 7,
+          order: 8,
           show: true,
         },
         {
           label: "今日头条",
           value: "toutiao",
-          order: 8,
+          order: 9,
           show: true,
         },
         {
           label: "百度贴吧",
           value: "tieba",
-          order: 9,
+          order: 10,
           show: true,
         },
         {
           label: "稀土掘金",
           value: "juejin",
-          order: 10,
+          order: 11,
           show: true,
         },
         {
           label: "腾讯新闻",
           value: "newsqq",
-          order: 11,
+          order: 12,
           show: true,
         },
       ],
@@ -96,12 +103,19 @@ export const mainStore = defineStore("main", {
         showIcon: false,
       });
       this.siteTheme = val;
+      this.siteThemeAuto = false;
     },
   },
   persist: [
     {
       storage: localStorage,
-      paths: ["siteTheme", "newsArr", "linkOpenType", "headerFixed"],
+      paths: [
+        "siteTheme",
+        "siteThemeAuto",
+        "newsArr",
+        "linkOpenType",
+        "headerFixed",
+      ],
     },
   ],
 });

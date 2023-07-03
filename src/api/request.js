@@ -49,6 +49,9 @@ axios.interceptors.response.use(
         case 301:
           $message.error(data.message ? data.message : "请求路径发生跳转");
           break;
+        case 403:
+          $message.error(data.message ? data.message : "暂无访问权限");
+          break;
         case 404:
           $message.error(data.message ? data.message : "请求资源不存在");
           break;

@@ -35,6 +35,15 @@ const routes = [
     },
     component: () => import("@/views/Test.vue"),
   },
+  // 403
+  {
+    path: "/403",
+    name: "403",
+    meta: {
+      title: "403",
+    },
+    component: () => import("@/views/403.vue"),
+  },
   // 404
   {
     path: "/404",
@@ -43,6 +52,15 @@ const routes = [
       title: "404",
     },
     component: () => import("@/views/404.vue"),
+  },
+  // 500
+  {
+    path: "/500",
+    name: "500",
+    meta: {
+      title: "500",
+    },
+    component: () => import("@/views/500.vue"),
   },
   {
     path: "/:pathMatch(.*)",

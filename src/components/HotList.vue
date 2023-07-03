@@ -150,19 +150,34 @@ const listLoading = ref(false);
 // 获取热榜数据
 const getHotListsData = (type, isNew = false) => {
   // hotListData.value = null;
-  getHotLists(type, isNew).then((res) => {
-    console.log(res);
-    if (res.code === 200) {
-      listLoading.value = false;
-      hotListData.value = res;
-      // 滚动至顶部
-      if (scrollbarRef.value) {
-        scrollbarRef.value.scrollTo({ position: "top", behavior: "smooth" });
+  getHotLists(type, isNew)
+    .then((res) => {
+      console.log(res);
+      if (res.code === 200) {
+        listLoading.value = false;
+        hotListData.value = res;
+        // 滚动至顶部
+        if (scrollbarRef.value) {
+          scrollbarRef.value.scrollTo({ position: "top", behavior: "smooth" });
+        }
+      } else {
+        $message.error(res.title + res.message);
       }
-    } else {
-      $message.error(res.title + res.message);
-    }
-  });
+    })
+    .catch((error) => {
+      console.error("资源请求失败：" + error);
+      switch (error?.response.status) {
+        case 403:
+          router.push("/403");
+          break;
+        case 500:
+          router.push("/500");
+          break;
+        default:
+          router.push("/404");
+          break;
+      }
+    });
 };
 
 // 获取最新数据

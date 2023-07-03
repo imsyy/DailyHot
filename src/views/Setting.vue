@@ -5,6 +5,32 @@
     <n-card class="set-item">
       <div class="top">
         <div class="name">
+          <n-text class="text">明暗模式</n-text>
+        </div>
+        <n-select
+          class="set"
+          v-model:value="siteTheme"
+          :options="themeOptions"
+          @update:value="siteThemeAuto = false"
+        />
+      </div>
+    </n-card>
+    <n-card class="set-item">
+      <div class="top">
+        <div class="name">
+          <n-text class="text">明暗模式跟随系统</n-text>
+          <n-text class="tip" :depth="3"> 明暗模式是否跟随系统当前模式 </n-text>
+        </div>
+        <n-switch
+          v-model:value="siteThemeAuto"
+          :round="false"
+          @update:value="themeAutoOpen"
+        />
+      </div>
+    </n-card>
+    <n-card class="set-item">
+      <div class="top">
+        <div class="name">
           <n-text class="text">链接跳转方式</n-text>
           <n-text class="tip" :depth="3"> 选择榜单列表内容的跳转方式 </n-text>
         </div>
@@ -93,10 +119,25 @@
 <script setup>
 import { storeToRefs } from "pinia";
 import { mainStore } from "@/store";
+import { useOsTheme } from "naive-ui";
 import draggable from "vuedraggable";
 
 const store = mainStore();
-const { newsArr, linkOpenType, headerFixed } = storeToRefs(store);
+const osThemeRef = useOsTheme();
+const { siteTheme, siteThemeAuto, newsArr, linkOpenType, headerFixed } =
+  storeToRefs(store);
+
+// 深浅模式
+const themeOptions = ref([
+  {
+    label: "浅色模式",
+    value: "light",
+  },
+  {
+    label: "深色模式",
+    value: "dark",
+  },
+]);
 
 // 榜单跳转
 const linkOptions = [
@@ -109,6 +150,14 @@ const linkOptions = [
     value: "href",
   },
 ];
+
+// 开启明暗自动跟随
+const themeAutoOpen = (val) => {
+  console.log(osThemeRef.value);
+  if (val) {
+    siteTheme.value = osThemeRef.value;
+  }
+};
 
 // 恢复默认排序
 const restoreDefault = () => {
@@ -139,27 +188,33 @@ const reset = () => {
     font-size: 40px;
     font-weight: bold;
   }
+
   .n-h {
     padding-left: 16px;
     font-size: 20px;
     margin-left: 4px;
   }
+
   .set-item {
     width: 100%;
     border-radius: 8px;
     margin-bottom: 12px;
+
     .top {
       display: flex;
       align-items: center;
       justify-content: space-between;
+
       .name {
         font-size: 18px;
         display: flex;
         flex-direction: column;
+
         .tip {
           font-size: 12px;
         }
       }
+
       .set {
         max-width: 200px;
       }
@@ -170,25 +225,32 @@ const reset = () => {
       display: grid;
       grid-template-columns: repeat(5, minmax(0px, 1fr));
       gap: 24px;
+
       @media (max-width: 1666px) {
         grid-template-columns: repeat(4, minmax(0px, 1fr));
       }
+
       @media (max-width: 1200px) {
         grid-template-columns: repeat(3, minmax(0px, 1fr));
       }
+
       @media (max-width: 890px) {
         grid-template-columns: repeat(2, minmax(0px, 1fr));
       }
+
       @media (max-width: 620px) {
         grid-template-columns: repeat(1, minmax(0px, 1fr));
       }
+
       .item {
         cursor: pointer;
+
         .desc {
           display: flex;
           align-items: center;
           width: 100%;
           transition: all 0.3s;
+
           .logo {
             width: 40px;
             height: 40px;
@@ -199,6 +261,7 @@ const reset = () => {
             font-size: 16px;
           }
         }
+
         .switch {
           margin-left: auto;
         }
