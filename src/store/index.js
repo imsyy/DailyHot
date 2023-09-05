@@ -86,6 +86,12 @@ export const mainStore = defineStore("main", {
           order: 12,
           show: true,
         },
+        {
+          label: "豆瓣新片榜",
+          value: "douban_new",
+          order: 13,
+          show: true
+        }
       ],
       // 链接跳转方式
       linkOpenType: "open",
