@@ -1,26 +1,23 @@
 <template>
-  <n-card
-    hoverable
-    class="hot-list"
-    :header-style="{ padding: '16px' }"
-    :content-style="{ padding: '0 16px' }"
-    :footer-style="{ padding: '16px' }"
-    @click="toList"
-  >
+  <n-card hoverable class="hot-list" :header-style="{ padding: '16px' }" :content-style="{ padding: '0 16px' }"
+    :footer-style="{ padding: '16px' }" @click="toList">
     <template #header>
       <Transition name="fade" mode="out-in">
-        <template v-if="!hotListData">
+        <template v-if="errorFlag">
+          <div class="loading">
+
+          </div>
+        </template>
+
+        <template v-else-if="!hotListData">
           <div class="loading">
             <n-skeleton text round />
           </div>
         </template>
+
         <template v-else>
           <div class="title">
-            <n-avatar
-              class="ico"
-              :src="`/logo/${hotType}.png`"
-              fallback-src="/ico/icon_error.png"
-            />
+            <n-avatar class="ico" :src="`/logo/${hotType}.png`" fallback-src="/ico/icon_error.png" />
             <n-text class="name">{{ hotListData.title }}</n-text>
             <n-text class="subtitle" :depth="2">
               {{ hotListData.subtitle }}
@@ -31,32 +28,32 @@
     </template>
     <n-scrollbar class="news-list" ref="scrollbarRef">
       <Transition name="fade" mode="out-in">
-        <template v-if="!hotListData || listLoading">
+        <template v-if="errorFlag">
+          <div>
+            <n-result status="404" title="热点资源不存在" description="生活总归带点荒谬">
+              <template #footer>
+                <n-button>找点乐子吧</n-button>
+              </template>
+            </n-result>
+          </div>
+        </template>
+
+        <template v-else-if="!hotListData || listLoading">
           <div class="loading">
             <n-skeleton text round :repeat="10" height="20px" />
           </div>
         </template>
         <template v-else>
           <div class="lists" :id="hotType + 'Lists'">
-            <div
-              class="item"
-              v-for="(item, index) in hotListData.data.slice(0, 15)"
-              :key="item"
-            >
-              <n-text
-                class="num"
-                :class="
-                  index === 0
-                    ? 'one'
-                    : index === 1
-                    ? 'two'
-                    : index === 2
+            <div class="item" v-for="(item, index) in hotListData.data.slice(0, 15)" :key="item">
+              <n-text class="num" :class="index === 0
+                ? 'one'
+                : index === 1
+                  ? 'two'
+                  : index === 2
                     ? 'three'
                     : null
-                "
-                :depth="2"
-                >{{ index + 1 }}</n-text
-              >
+                " :depth="2">{{ index + 1 }}</n-text>
               <n-text class="text" @click.stop="jumpLink(item)">
                 {{ item.title }}
               </n-text>
@@ -67,7 +64,11 @@
     </n-scrollbar>
     <template #footer>
       <Transition name="fade" mode="out-in">
-        <template v-if="!hotListData">
+        <template v-if="errorFlag">
+          <div class="loading">
+          </div>
+        </template>
+        <template v-else-if="!hotListData">
           <div class="loading">
             <n-skeleton text round />
           </div>
@@ -81,13 +82,7 @@
             <n-space class="controls">
               <n-popover v-if="hotListData.data.length > 15">
                 <template #trigger>
-                  <n-button
-                    size="tiny"
-                    secondary
-                    strong
-                    round
-                    @click.stop="toList"
-                  >
+                  <n-button size="tiny" secondary strong round @click.stop="toList">
                     <template #icon>
                       <n-icon :component="More" />
                     </template>
@@ -97,13 +92,7 @@
               </n-popover>
               <n-popover>
                 <template #trigger>
-                  <n-button
-                    size="tiny"
-                    secondary
-                    strong
-                    round
-                    @click.stop="getNewData"
-                  >
+                  <n-button size="tiny" secondary strong round @click.stop="getNewData">
                     <template #icon>
                       <n-icon :component="Refresh" />
                     </template>
@@ -147,6 +136,8 @@ const hotListData = ref(null);
 const scrollbarRef = ref(null);
 const listLoading = ref(false);
 
+const errorFlag = ref(false);
+
 // 获取热榜数据
 const getHotListsData = (type, isNew = false) => {
   // hotListData.value = null;
@@ -165,18 +156,20 @@ const getHotListsData = (type, isNew = false) => {
       }
     })
     .catch((error) => {
-      console.error("资源请求失败：" + error);
-      switch (error?.response.status) {
-        case 403:
-          router.push("/403");
-          break;
-        case 500:
-          router.push("/500");
-          break;
-        default:
-          router.push("/404");
-          break;
-      }
+
+      errorFlag.value = true;
+
+      // switch (error?.response.status) {
+      //   case 403:
+      //     router.push("/403");
+      //     break;
+      //   case 500:
+      //     router.push("/500");
+      //     break;
+      //   default:
+      //     router.push("/500");
+      //     break;
+      // }
     });
 };
 
@@ -241,6 +234,7 @@ onMounted(() => {
   border-radius: 12px;
   transition: all 0.3s;
   cursor: pointer;
+
   .fade-enter-active,
   .fade-leave-active {
     transition: opacity 0.3s ease-in-out;
@@ -250,37 +244,45 @@ onMounted(() => {
   .fade-leave-to {
     opacity: 0;
   }
+
   .title {
     display: flex;
     align-items: center;
     font-size: 16px;
     height: 26px;
+
     .n-avatar {
       background-color: transparent;
       width: 20px;
       height: 20px;
       margin-right: 8px;
     }
+
     .subtitle {
       margin-left: auto;
       font-size: 12px;
     }
   }
+
   .message {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
     font-size: 12px;
     height: 24px;
+
     .time {
       padding: 0 6px;
     }
   }
+
   :deep(.news-list) {
     height: 300px;
+
     .n-scrollbar-rail {
       right: 0;
     }
+
     .loading {
       display: flex;
       flex-direction: column;
@@ -288,8 +290,10 @@ onMounted(() => {
       justify-content: space-between;
     }
   }
+
   .lists {
     padding-right: 6px;
+
     .item {
       display: flex;
       align-items: center;
@@ -299,9 +303,11 @@ onMounted(() => {
       border-radius: 8px;
       transition: all 0.3s;
       cursor: pointer;
+
       &:nth-last-of-type(1) {
         margin-bottom: 0;
       }
+
       .num {
         width: 24px;
         height: 24px;
@@ -314,40 +320,49 @@ onMounted(() => {
         background-color: var(--n-border-color);
         border-radius: 8px;
         transition: all 0.3s;
+
         &:hover {
           background-color: var(--n-close-color-hover);
         }
+
         &.one {
           background-color: #ea444d;
           color: #fff;
         }
+
         &.two {
           background-color: #ed702d;
           color: #fff;
         }
+
         &.three {
           background-color: #eead3f;
           color: #fff;
         }
       }
+
       .text {
         position: relative;
         display: inline-block;
         width: 100%;
         transition: all 0.3s;
+
         @media (min-width: 768px) {
           &:hover {
             transform: translateX(4px);
+
             &::after {
               width: 90%;
             }
           }
         }
+
         @media (max-width: 768px) {
           &:active {
             color: #ea444d;
           }
         }
+
         &::after {
           content: "";
           width: 0;
@@ -363,11 +378,13 @@ onMounted(() => {
       }
     }
   }
+
   :deep(.n-card-header) {
     .loading {
       height: 26px;
     }
   }
+
   :deep(.n-card__footer) {
     .loading {
       height: 24px;
