@@ -1,92 +1,129 @@
 import { defineStore } from "pinia";
 
-export const mainStore = defineStore("main", {
+export const mainStore = defineStore("mainData", {
   state: () => {
     return {
       // 系统主题
       siteTheme: "light",
       siteThemeAuto: true,
       // 新闻类别
-      newsArr: [
+      defaultNewsArr: [
         {
           label: "哔哩哔哩",
-          value: "bilibili",
+          name: "bilibili",
           order: 0,
           show: true,
         },
         {
           label: "微博",
-          value: "weibo",
+          name: "weibo",
           order: 1,
           show: true,
         },
         {
           label: "抖音",
-          value: "douyin",
+          name: "douyin",
           order: 2,
           show: true,
         },
         {
           label: "知乎",
-          value: "zhihu",
+          name: "zhihu",
           order: 3,
           show: true,
         },
         {
           label: "36氪",
-          value: "36kr",
+          name: "36kr",
           order: 4,
           show: true,
         },
         {
           label: "百度",
-          value: "baidu",
+          name: "baidu",
           order: 5,
           show: true,
         },
         {
           label: "少数派",
-          value: "sspai",
+          name: "sspai",
           order: 6,
           show: true,
         },
         {
           label: "IT之家",
-          value: "ithome",
+          name: "ithome",
           order: 7,
           show: true,
         },
         {
           label: "澎湃新闻",
-          value: "thepaper",
+          name: "thepaper",
           order: 8,
           show: true,
         },
         {
           label: "今日头条",
-          value: "toutiao",
+          name: "toutiao",
           order: 9,
           show: true,
         },
         {
           label: "百度贴吧",
-          value: "tieba",
+          name: "tieba",
           order: 10,
           show: true,
         },
         {
           label: "稀土掘金",
-          value: "juejin",
+          name: "juejin",
           order: 11,
           show: true,
         },
         {
           label: "腾讯新闻",
-          value: "newsqq",
+          name: "newsqq",
           order: 12,
           show: true,
         },
+        {
+          label: "豆瓣",
+          name: "douban_new",
+          order: 13,
+          show: true,
+        },
+        {
+          label: "原神",
+          name: "genshin",
+          order: 14,
+          show: true,
+        },
+        {
+          label: "LOL",
+          name: "lol",
+          order: 15,
+          show: true,
+        },
+        {
+          label: "快手",
+          name: "kuaishou",
+          order: 16,
+          show: true,
+        },
+        {
+          label: "网易新闻",
+          name: "netease",
+          order: 17,
+          show: true,
+        },
+        {
+          label: "微信读书",
+          name: "weread",
+          order: 18,
+          show: true,
+        },
       ],
+      newsArr: [],
       // 链接跳转方式
       linkOpenType: "open",
       // 页头固定
@@ -104,6 +141,30 @@ export const mainStore = defineStore("main", {
       });
       this.siteTheme = val;
       this.siteThemeAuto = false;
+    },
+    // 检查更新
+    checkNewsUpdate() {
+      const mainData = JSON.parse(localStorage.getItem("mainData"));
+      let updatedNum = 0;
+      if (!mainData) return false;
+      console.log("列表尝试更新", this.defaultNewsArr, this.newsArr);
+      // 执行比较并迁移
+      if (this.newsArr.length > 0) {
+        for (const newItem of this.defaultNewsArr) {
+          const exists = this.newsArr.some(
+            (news) => newItem.label === news.label && newItem.name === news.name
+          );
+          if (!exists) {
+            console.log("列表有更新：", newItem);
+            updatedNum++;
+            this.newsArr.push(newItem);
+          }
+        }
+        if (updatedNum) $message.success(`成功更新 ${updatedNum} 个榜单数据`);
+      } else {
+        console.log("列表无内容，写入默认");
+        this.newsArr = this.defaultNewsArr;
+      }
     },
   },
   persist: [

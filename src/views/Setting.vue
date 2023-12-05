@@ -79,11 +79,7 @@
             :content-style="{ display: 'flex', alignItems: 'center' }"
           >
             <div class="desc" :style="{ opacity: element.show ? null : 0.6 }">
-              <img
-                class="logo"
-                :src="`/logo/${element.value}.png`"
-                alt="logo"
-              />
+              <img class="logo" :src="`/logo/${element.name}.png`" alt="logo" />
               <n-text class="news-name" v-html="element.label" />
             </div>
             <n-switch
@@ -174,7 +170,7 @@ const saveSoreData = (name = null, open = false) => {
 
 // 重置数据
 const reset = () => {
-  if ($timeInterval) clearInterval($timeInterval);
+  if (typeof $timeInterval !== "undefined") clearInterval($timeInterval);
   localStorage.clear();
   location.reload();
 };
