@@ -1,12 +1,6 @@
 <template>
-  <n-card
-    hoverable
-    class="hot-list"
-    :header-style="{ padding: '16px' }"
-    :content-style="{ padding: '0 16px' }"
-    :footer-style="{ padding: '16px' }"
-    @click="toList"
-  >
+  <n-card hoverable class="hot-list" :header-style="{ padding: '16px' }" :content-style="{ padding: '0 16px' }"
+    :footer-style="{ padding: '16px' }" @click="toList">
     <template #header>
       <n-space class="title" justify="space-between">
         <div class="name">
@@ -56,10 +50,7 @@
                     : index === 2
                     ? 'three'
                     : null
-                "
-                :depth="2"
-                >{{ index + 1 }}</n-text
-              >
+                " :depth="2">{{ index + 1 }}</n-text>
               <n-text class="text" @click.stop="jumpLink(item)">
                 {{ item.title }}
               </n-text>
@@ -70,7 +61,11 @@
     </n-scrollbar>
     <template #footer>
       <Transition name="fade" mode="out-in">
-        <template v-if="!hotListData">
+        <template v-if="errorFlag">
+          <div class="loading">
+          </div>
+        </template>
+        <template v-else-if="!hotListData">
           <div class="loading">
             <n-skeleton text round />
           </div>
@@ -84,13 +79,7 @@
             <n-space class="controls">
               <n-popover v-if="hotListData.data.length > 15">
                 <template #trigger>
-                  <n-button
-                    size="tiny"
-                    secondary
-                    strong
-                    round
-                    @click.stop="toList"
-                  >
+                  <n-button size="tiny" secondary strong round @click.stop="toList">
                     <template #icon>
                       <n-icon :component="More" />
                     </template>
@@ -100,13 +89,7 @@
               </n-popover>
               <n-popover>
                 <template #trigger>
-                  <n-button
-                    size="tiny"
-                    secondary
-                    strong
-                    round
-                    @click.stop="getNewData"
-                  >
+                  <n-button size="tiny" secondary strong round @click.stop="getNewData">
                     <template #icon>
                       <n-icon :component="Refresh" />
                     </template>
@@ -238,6 +221,7 @@ onMounted(() => {
   border-radius: 12px;
   transition: all 0.3s;
   cursor: pointer;
+
   .fade-enter-active,
   .fade-leave-active {
     transition: opacity 0.3s ease-in-out;
@@ -247,6 +231,7 @@ onMounted(() => {
   .fade-leave-to {
     opacity: 0;
   }
+
   .title {
     display: flex;
     align-items: center;
@@ -262,26 +247,32 @@ onMounted(() => {
         margin-right: 8px;
       }
     }
+
     .subtitle {
       margin-left: auto;
       font-size: 12px;
     }
   }
+
   .message {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
     font-size: 12px;
     height: 24px;
+
     .time {
       padding: 0 6px;
     }
   }
+
   :deep(.news-list) {
     height: 300px;
+
     .n-scrollbar-rail {
       right: 0;
     }
+
     .loading {
       display: flex;
       flex-direction: column;
@@ -289,8 +280,10 @@ onMounted(() => {
       justify-content: space-between;
     }
   }
+
   .lists {
     padding-right: 6px;
+
     .item {
       display: flex;
       align-items: center;
@@ -300,9 +293,11 @@ onMounted(() => {
       border-radius: 8px;
       transition: all 0.3s;
       cursor: pointer;
+
       &:nth-last-of-type(1) {
         margin-bottom: 0;
       }
+
       .num {
         width: 24px;
         height: 24px;
@@ -315,40 +310,49 @@ onMounted(() => {
         background-color: var(--n-border-color);
         border-radius: 8px;
         transition: all 0.3s;
+
         &:hover {
           background-color: var(--n-close-color-hover);
         }
+
         &.one {
           background-color: #ea444d;
           color: #fff;
         }
+
         &.two {
           background-color: #ed702d;
           color: #fff;
         }
+
         &.three {
           background-color: #eead3f;
           color: #fff;
         }
       }
+
       .text {
         position: relative;
         display: inline-block;
         width: 100%;
         transition: all 0.3s;
+
         @media (min-width: 768px) {
           &:hover {
             transform: translateX(4px);
+
             &::after {
               width: 90%;
             }
           }
         }
+
         @media (max-width: 768px) {
           &:active {
             color: #ea444d;
           }
         }
+
         &::after {
           content: "";
           width: 0;
@@ -364,11 +368,13 @@ onMounted(() => {
       }
     }
   }
+
   :deep(.n-card-header) {
     .loading {
       height: 26px;
     }
   }
+
   :deep(.n-card__footer) {
     .loading {
       height: 24px;
