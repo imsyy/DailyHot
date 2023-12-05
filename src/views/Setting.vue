@@ -51,6 +51,37 @@
       </div>
     </n-card>
     <n-card class="set-item">
+      <div class="top" style="flex-direction: column; align-items: flex-start">
+        <div class="name">
+          <n-text class="text">歌词文本大小</n-text>
+          <n-card
+            class="tip"
+            :style="{
+              backgroundColor: 'var(--n-border-color)',
+              margin: '12px 0',
+            }"
+          >
+            <n-text :style="{ fontSize: listFontSize + 'px' }">
+              我是将要显示的文字的大小
+            </n-text>
+          </n-card>
+        </div>
+
+        <n-slider
+          v-model:value="listFontSize"
+          :tooltip="false"
+          :max="20"
+          :min="14"
+          :step="0.01"
+          :marks="{
+            14: '默认',
+            16: '大一点',
+            20: '最大',
+          }"
+        />
+      </div>
+    </n-card>
+    <n-card class="set-item">
       <div class="top">
         <div class="name">
           <n-text class="text">榜单排序</n-text>
@@ -120,8 +151,14 @@ import draggable from "vuedraggable";
 
 const store = mainStore();
 const osThemeRef = useOsTheme();
-const { siteTheme, siteThemeAuto, newsArr, linkOpenType, headerFixed } =
-  storeToRefs(store);
+const {
+  siteTheme,
+  siteThemeAuto,
+  newsArr,
+  linkOpenType,
+  headerFixed,
+  listFontSize,
+} = storeToRefs(store);
 
 // 深浅模式
 const themeOptions = ref([
@@ -208,6 +245,7 @@ const reset = () => {
 
         .tip {
           font-size: 12px;
+          border-radius: 8px;
         }
       }
 

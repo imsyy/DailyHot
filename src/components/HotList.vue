@@ -1,6 +1,12 @@
 <template>
-  <n-card hoverable class="hot-list" :header-style="{ padding: '16px' }" :content-style="{ padding: '0 16px' }"
-    :footer-style="{ padding: '16px' }" @click="toList">
+  <n-card
+    hoverable
+    class="hot-list"
+    :header-style="{ padding: '16px' }"
+    :content-style="{ padding: '0 16px' }"
+    :footer-style="{ padding: '16px' }"
+    @click="toList"
+  >
     <template #header>
       <n-space class="title" justify="space-between">
         <div class="name">
@@ -50,8 +56,15 @@
                     : index === 2
                     ? 'three'
                     : null
-                " :depth="2">{{ index + 1 }}</n-text>
-              <n-text class="text" @click.stop="jumpLink(item)">
+                "
+                :depth="2"
+                >{{ index + 1 }}</n-text
+              >
+              <n-text
+                :style="{ fontSize: store.listFontSize + 'px' }"
+                class="text"
+                @click.stop="jumpLink(item)"
+              >
                 {{ item.title }}
               </n-text>
             </div>
@@ -75,7 +88,13 @@
             <n-space class="controls">
               <n-popover v-if="hotListData.data.length > 15">
                 <template #trigger>
-                  <n-button size="tiny" secondary strong round @click.stop="toList">
+                  <n-button
+                    size="tiny"
+                    secondary
+                    strong
+                    round
+                    @click.stop="toList"
+                  >
                     <template #icon>
                       <n-icon :component="More" />
                     </template>
@@ -85,7 +104,13 @@
               </n-popover>
               <n-popover>
                 <template #trigger>
-                  <n-button size="tiny" secondary strong round @click.stop="getNewData">
+                  <n-button
+                    size="tiny"
+                    secondary
+                    strong
+                    round
+                    @click.stop="getNewData"
+                  >
                     <template #icon>
                       <n-icon :component="Refresh" />
                     </template>

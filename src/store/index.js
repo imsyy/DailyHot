@@ -130,6 +130,8 @@ export const mainStore = defineStore("mainData", {
       headerFixed: true,
       // 时间数据
       timeData: null,
+      // 字体大小
+      listFontSize: 14,
     };
   },
   getters: {},
@@ -176,6 +178,7 @@ export const mainStore = defineStore("mainData", {
         "newsArr",
         "linkOpenType",
         "headerFixed",
+        "listFontSize",
       ],
     },
   ],
