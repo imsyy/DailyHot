@@ -61,11 +61,7 @@
     </n-scrollbar>
     <template #footer>
       <Transition name="fade" mode="out-in">
-        <template v-if="errorFlag">
-          <div class="loading">
-          </div>
-        </template>
-        <template v-else-if="!hotListData">
+        <template v-if="!hotListData">
           <div class="loading">
             <n-skeleton text round />
           </div>
