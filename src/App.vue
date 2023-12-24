@@ -1,4 +1,11 @@
 <template>
+  <div 
+    v-for="item in categories"
+    v-if="item.name !== 'lol'"
+    :key="item.name"
+    class="category-item">
+    ...
+  </div>
   <Provider>
     <n-layout
       embedded
@@ -21,15 +28,6 @@
   </Provider>
 </template>
 
-<template> 
-  <div 
-    v-for="item in categories"
-    v-if="item.name !== 'lol'"
-    :key="item.name"
-    class="category-item">
-    ...
-  </div>
-</template>
 <script setup>
 import { mainStore } from "@/store";
 import Provider from "@/components/Provider.vue";
