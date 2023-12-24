@@ -99,12 +99,6 @@ export const mainStore = defineStore("mainData", {
           show: true,
         },
         {
-          label: "LOL",
-          name: "lol",
-          order: 15,
-          show: true,
-        },
-        {
           label: "快手",
           name: "kuaishou",
           order: 16,
