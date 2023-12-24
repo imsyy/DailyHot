@@ -102,7 +102,7 @@ export const mainStore = defineStore("mainData", {
           label: "LOL",
           name: "lol",
           order: 15,
-          show: true,
+          show: false,
         },
         {
           label: "快手",
