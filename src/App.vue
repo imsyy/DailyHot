@@ -1,11 +1,4 @@
 <template>
-  <div 
-    v-for="item in categories"
-    v-if="item.name !== 'lol'"
-    :key="item.name"
-    class="category-item">
-    ...
-  </div>
   <Provider>
     <n-layout
       embedded
