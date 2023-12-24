@@ -102,7 +102,7 @@ export const mainStore = defineStore("mainData", {
           label: "LOL",
           name: "lol",
           order: 15,
-          show: false,
+          show: true,
         },
         {
           label: "快手",
@@ -165,7 +165,7 @@ export const mainStore = defineStore("mainData", {
         if (updatedNum) $message.success(`成功更新 ${updatedNum} 个榜单数据`);
       } else {
         console.log("列表无内容，写入默认");
-        this.newsArr = this.defaultNewsArr.filter(x => x.name !== 'lol');
+        this.newsArr = this.defaultNewsArr;
       }
     },
   },
