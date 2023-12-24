@@ -5,7 +5,7 @@
         round
         size="large"
         class="tag"
-        v-for="item in store.newsArr.filter((item) => item.name !== 'lol')"
+        v-for="item in store.newsArr.filter((item) => item.show)"
         :key="item"
         :type="item.name === listType ? 'primary' : 'default'"
         @click="changeType(item.name)"
