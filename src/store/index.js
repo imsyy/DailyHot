@@ -30,7 +30,7 @@ export const mainStore = defineStore("mainData", {
           label: "知乎",
           name: "zhihu",
           order: 3,
-          show: false,
+          show: true,
         },
         {
           label: "36氪",
