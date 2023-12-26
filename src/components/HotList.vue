@@ -25,7 +25,7 @@
     </template>
     <n-scrollbar class="news-list" ref="scrollbarRef">
       <Transition name="fade" mode="out-in">
-        <template v-if="loadingError">
+        <div v-if="loadingError" class="error">
           <n-result
             size="small"
             status="500"
@@ -33,43 +33,51 @@
             description="生活总会遇到不如意的事情"
             style="margin-top: 40px"
           />
-        </template>
-        <template v-else-if="!hotListData || listLoading">
-          <div class="loading">
-            <n-skeleton text round :repeat="10" height="20px" />
-          </div>
-        </template>
-        <template v-else>
-          <div class="lists" :id="hotData.name + 'Lists'">
-            <div
-              class="item"
-              v-for="(item, index) in hotListData.data.slice(0, 15)"
-              :key="item"
+          <n-button
+            size="small"
+            secondary
+            strong
+            round
+            @click.stop="getHotListsData(hotData.name)"
+          >
+            <template #icon>
+              <n-icon :component="Refresh" />
+            </template>
+            重试
+          </n-button>
+        </div>
+        <div v-else-if="!hotListData || listLoading" class="loading">
+          <n-skeleton text round :repeat="10" height="20px" />
+        </div>
+        <div v-else class="lists" :id="hotData.name + 'Lists'">
+          <div
+            class="item"
+            v-for="(item, index) in hotListData.data.slice(0, 15)"
+            :key="item"
+          >
+            <n-text
+              class="num"
+              :class="
+                index === 0
+                  ? 'one'
+                  : index === 1
+                  ? 'two'
+                  : index === 2
+                  ? 'three'
+                  : null
+              "
+              :depth="2"
+              >{{ index + 1 }}</n-text
             >
-              <n-text
-                class="num"
-                :class="
-                  index === 0
-                    ? 'one'
-                    : index === 1
-                    ? 'two'
-                    : index === 2
-                    ? 'three'
-                    : null
-                "
-                :depth="2"
-                >{{ index + 1 }}</n-text
-              >
-              <n-text
-                :style="{ fontSize: store.listFontSize + 'px' }"
-                class="text"
-                @click.stop="jumpLink(item)"
-              >
-                {{ item.title }}
-              </n-text>
-            </div>
+            <n-text
+              :style="{ fontSize: store.listFontSize + 'px' }"
+              class="text"
+              @click.stop="jumpLink(item)"
+            >
+              {{ item.title }}
+            </n-text>
           </div>
-        </template>
+        </div>
       </Transition>
     </n-scrollbar>
     <template #footer>
@@ -292,6 +300,15 @@ onMounted(() => {
 
     .n-scrollbar-rail {
       right: 0;
+    }
+
+    .error {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .n-button {
+        margin-top: 12px;
+      }
     }
 
     .loading {
