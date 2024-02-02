@@ -38,7 +38,7 @@
             secondary
             strong
             round
-            @click.stop="getHotListsData(hotData)"
+            @click.stop="getHotListsData(hotData.name)"
           >
             <template #icon>
               <n-icon :component="Refresh" />
@@ -166,10 +166,11 @@ const listLoading = ref(false);
 const loadingError = ref(false);
 
 // 获取热榜数据
-const getHotListsData = async (item, isNew = false) => {
+const getHotListsData = async (name, isNew = false) => {
   try {
     // hotListData.value = null;
     loadingError.value = false;
+    const item = store.newsArr.find((item) => item.name == name)
     const result = await getHotLists(item.name, isNew, item.params);
     // console.log(result);
     if (result.code === 200) {
@@ -195,7 +196,7 @@ const getNewData = () => {
   if (now - lastClickTime.value > 60000) {
     // 点击事件
     listLoading.value = true;
-    getHotListsData(props.hotData, true);
+    getHotListsData(props.hotData.name, true);
     // 更新最后一次点击时间
     lastClickTime.value = now;
     localStorage.setItem(`${props.hotData.name}Btn`, now);
@@ -241,7 +242,7 @@ watch(
 );
 
 onMounted(() => {
-  if (props.hotData.name) getHotListsData(props.hotData);
+  if (props.hotData.name) getHotListsData(props.hotData.name);
 });
 </script>
 
