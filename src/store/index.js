@@ -122,6 +122,38 @@ export const mainStore = defineStore("mainData", {
           order: 18,
           show: true,
         },
+        {
+          label: "豆瓣讨论小组",
+          name: "douban_group",
+          order: 19,
+          show: true,
+        },
+        {
+          label: "网易云音乐",
+          name: "netease_music_toplist",
+          params: { type: 1 },
+          order: 20,
+          show: true,
+        },
+        {
+          label: "QQ音乐热歌榜",
+          name: "qq_music_toplist",
+          params: { type: 1 },
+          order: 21,
+          show: true,
+        },
+        {
+          label: "NGA",
+          name: "ngabbs",
+          order: 22,
+          show: true,
+        },
+        {
+          label: "V2EX",
+          name: "v2ex",
+          order: 23,
+          show: true,
+        },
       ],
       newsArr: [],
       // 链接跳转方式
