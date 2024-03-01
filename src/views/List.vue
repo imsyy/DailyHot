@@ -141,9 +141,10 @@ const pageNumber = ref(
 const listData = ref(null);
 
 // 获取热榜数据
-const getHotListsData = (type, isNew = false) => {
+const getHotListsData = async (name, isNew = false) => {
   listData.value = null;
-  getHotLists(type, isNew).then((res) => {
+  const item = store.newsArr.find((item) => item.name == name)
+  getHotLists(item.name, isNew, item.params).then((res) => {
     console.log(res);
     if (res.code === 200) {
       listData.value = res;

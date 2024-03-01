@@ -166,11 +166,12 @@ const listLoading = ref(false);
 const loadingError = ref(false);
 
 // 获取热榜数据
-const getHotListsData = async (type, isNew = false) => {
+const getHotListsData = async (name, isNew = false) => {
   try {
     // hotListData.value = null;
     loadingError.value = false;
-    const result = await getHotLists(type, isNew);
+    const item = store.newsArr.find((item) => item.name == name)
+    const result = await getHotLists(item.name, isNew, item.params);
     // console.log(result);
     if (result.code === 200) {
       listLoading.value = false;
