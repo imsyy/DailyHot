@@ -82,13 +82,13 @@ export const mainStore = defineStore("mainData", {
         },
         {
           label: "腾讯新闻",
-          name: "newsqq",
+          name: "qq-news",
           order: 12,
           show: true,
         },
         {
-          label: "豆瓣",
-          name: "douban_new",
+          label: "豆瓣电影",
+          name: "douban-movie",
           order: 13,
           show: true,
         },
@@ -99,20 +99,20 @@ export const mainStore = defineStore("mainData", {
           show: true,
         },
         {
+          label: "崩坏：星穹铁道",
+          name: "starrail",
+          order: 16,
+          show: true,
+        },
+        {
           label: "LOL",
           name: "lol",
           order: 15,
           show: true,
         },
         {
-          label: "快手",
-          name: "kuaishou",
-          order: 16,
-          show: true,
-        },
-        {
           label: "网易新闻",
-          name: "netease",
+          name: "netease-news",
           order: 17,
           show: true,
         },
@@ -124,33 +124,31 @@ export const mainStore = defineStore("mainData", {
         },
         {
           label: "豆瓣讨论小组",
-          name: "douban_group",
+          name: "douban-group",
           order: 19,
-          show: true,
-        },
-        {
-          label: "网易云音乐",
-          name: "netease_music_toplist",
-          params: { type: 1 },
-          order: 20,
-          show: true,
-        },
-        {
-          label: "QQ音乐热歌榜",
-          name: "qq_music_toplist",
-          params: { type: 1 },
-          order: 21,
           show: true,
         },
         {
           label: "NGA",
           name: "ngabbs",
+          order: 20,
+          show: true,
+        },
+        {
+          label: "HelloGitHub",
+          name: "hellogithub",
+          order: 21,
+          show: true,
+        },
+        {
+          label: "简书",
+          name: "jianshu",
           order: 22,
           show: true,
         },
         {
-          label: "V2EX",
-          name: "v2ex",
+          label: "知乎日报",
+          name: "zhihu-daily",
           order: 23,
           show: true,
         },
@@ -163,7 +161,7 @@ export const mainStore = defineStore("mainData", {
       // 时间数据
       timeData: null,
       // 字体大小
-      listFontSize: 14,
+      listFontSize: 16,
     };
   },
   getters: {},

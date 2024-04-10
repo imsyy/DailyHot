@@ -53,7 +53,7 @@
     <n-card class="set-item">
       <div class="top" style="flex-direction: column; align-items: flex-start">
         <div class="name">
-          <n-text class="text">歌词文本大小</n-text>
+          <n-text class="text">列表文本大小</n-text>
           <n-card
             class="tip"
             :style="{
@@ -74,8 +74,8 @@
           :min="14"
           :step="0.01"
           :marks="{
-            14: '默认',
-            16: '大一点',
+            14: '小一点',
+            16: '默认',
             20: '最大',
           }"
         />

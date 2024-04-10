@@ -1,10 +1,11 @@
 <template>
   <n-card
-    hoverable
-    class="hot-list"
     :header-style="{ padding: '16px' }"
     :content-style="{ padding: '0 16px' }"
     :footer-style="{ padding: '16px' }"
+    :id="`hot-list-${hotData.name}`"
+    class="hot-list"
+    hoverable
     @click="toList"
   >
     <template #header>
@@ -17,8 +18,8 @@
           />
           <n-text class="name-text">{{ hotData.label }}</n-text>
         </div>
-        <n-text v-if="hotListData?.subtitle" class="subtitle" :depth="2">
-          {{ hotListData.subtitle }}
+        <n-text v-if="hotListData?.type" class="subtitle" :depth="2">
+          {{ hotListData.type }}
         </n-text>
         <n-skeleton v-else width="60px" text round />
       </n-space>
@@ -170,7 +171,7 @@ const getHotListsData = async (name, isNew = false) => {
   try {
     // hotListData.value = null;
     loadingError.value = false;
-    const item = store.newsArr.find((item) => item.name == name)
+    const item = store.newsArr.find((item) => item.name == name);
     const result = await getHotLists(item.name, isNew, item.params);
     // console.log(result);
     if (result.code === 200) {
@@ -231,6 +232,23 @@ const toList = () => {
   }
 };
 
+// 判断列表是否显示
+const checkListShow = () => {
+  const typeName = props.hotData.name;
+  const listId = "hot-list-" + typeName;
+  const listDom = document.getElementById(listId);
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        console.log(`👀 ${typeName} 可见，开始加载`);
+        getHotListsData(props.hotData.name);
+        observer.unobserve(entry.target);
+      }
+    });
+  });
+  observer.observe(listDom);
+};
+
 // 实时改变更新时间
 watch(
   () => store.timeData,
@@ -242,7 +260,7 @@ watch(
 );
 
 onMounted(() => {
-  if (props.hotData.name) getHotListsData(props.hotData.name);
+  checkListShow();
 });
 </script>
 
@@ -251,17 +269,6 @@ onMounted(() => {
   border-radius: 12px;
   transition: all 0.3s;
   cursor: pointer;
-
-  .fade-enter-active,
-  .fade-leave-active {
-    transition: opacity 0.3s ease-in-out;
-  }
-
-  .fade-enter-from,
-  .fade-leave-to {
-    opacity: 0;
-  }
-
   .title {
     display: flex;
     align-items: center;

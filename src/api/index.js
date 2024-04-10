@@ -7,10 +7,13 @@ import axios from "@/api/request";
  * @param {object} params 请求参数
  * @returns
  */
-export const getHotLists = (type, isNew, params) => {
+export const getHotLists = (type, isNew = false, params) => {
   return axios({
     method: "GET",
-    url: `/${type}${isNew ? "/new" : "/"}`,
-    params,
+    url: `/${type}`,
+    params: {
+      cache: !isNew,
+      ...params,
+    },
   });
 };

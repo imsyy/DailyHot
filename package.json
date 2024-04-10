@@ -3,7 +3,7 @@
   "description": "今日热榜",
   "author": "imsyy",
   "github": "https://github.com/imsyy",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -12,24 +12,24 @@
   },
   "dependencies": {
     "@icon-park/vue-next": "^1.4.2",
-    "@jridgewell/sourcemap-codec": "^1.4.14",
-    "axios": "^1.3.3",
+    "@jridgewell/sourcemap-codec": "^1.4.15",
+    "axios": "^1.6.8",
     "lunar-calendar": "^0.1.4",
-    "pinia": "^2.0.28",
-    "pinia-plugin-persistedstate": "^3.1.0",
-    "sass": "^1.56.1",
+    "pinia": "^2.1.7",
+    "pinia-plugin-persistedstate": "^3.2.1",
+    "sass": "^1.74.1",
     "scrollreveal": "^4.0.9",
-    "terser": "^5.16.5",
-    "vue": "^3.2.45",
-    "vue-router": "^4.1.6",
+    "terser": "^5.30.3",
+    "vue": "^3.4.21",
+    "vue-router": "^4.3.0",
     "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^4.0.0",
-    "naive-ui": "^2.34.3",
-    "unplugin-auto-import": "^0.12.0",
-    "unplugin-vue-components": "^0.22.11",
-    "vite": "^4.0.0",
-    "vite-plugin-pwa": "^0.14.1"
+    "@vitejs/plugin-vue": "^4.6.2",
+    "naive-ui": "^2.38.1",
+    "unplugin-auto-import": "^0.12.2",
+    "unplugin-vue-components": "^0.22.12",
+    "vite": "^4.5.3",
+    "vite-plugin-pwa": "^0.14.7"
   }
 }
