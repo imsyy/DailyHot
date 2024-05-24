@@ -36,6 +36,16 @@ const headerShow = ref(false);
 const backTopChange = (val) => {
   headerShow.value = val;
 };
+
+onMounted(() => {
+  store.checkNewsUpdate();
+  // 写入默认
+  nextTick(() => {
+    if (store.newsArr.length === 0) {
+      store.newsArr = store.defaultNewsArr;
+    }
+  });
+});
 </script>
 
 <style lang="scss" scoped>

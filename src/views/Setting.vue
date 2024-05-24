@@ -51,6 +51,37 @@
       </div>
     </n-card>
     <n-card class="set-item">
+      <div class="top" style="flex-direction: column; align-items: flex-start">
+        <div class="name">
+          <n-text class="text">列表文本大小</n-text>
+          <n-card
+            class="tip"
+            :style="{
+              backgroundColor: 'var(--n-border-color)',
+              margin: '12px 0',
+            }"
+          >
+            <n-text :style="{ fontSize: listFontSize + 'px' }">
+              我是将要显示的文字的大小
+            </n-text>
+          </n-card>
+        </div>
+
+        <n-slider
+          v-model:value="listFontSize"
+          :tooltip="false"
+          :max="20"
+          :min="14"
+          :step="0.01"
+          :marks="{
+            14: '小一点',
+            16: '默认',
+            20: '最大',
+          }"
+        />
+      </div>
+    </n-card>
+    <n-card class="set-item">
       <div class="top">
         <div class="name">
           <n-text class="text">榜单排序</n-text>
@@ -79,11 +110,7 @@
             :content-style="{ display: 'flex', alignItems: 'center' }"
           >
             <div class="desc" :style="{ opacity: element.show ? null : 0.6 }">
-              <img
-                class="logo"
-                :src="`/logo/${element.value}.png`"
-                alt="logo"
-              />
+              <img class="logo" :src="`/logo/${element.name}.png`" alt="logo" />
               <n-text class="news-name" v-html="element.label" />
             </div>
             <n-switch
@@ -124,8 +151,14 @@ import draggable from "vuedraggable";
 
 const store = mainStore();
 const osThemeRef = useOsTheme();
-const { siteTheme, siteThemeAuto, newsArr, linkOpenType, headerFixed } =
-  storeToRefs(store);
+const {
+  siteTheme,
+  siteThemeAuto,
+  newsArr,
+  linkOpenType,
+  headerFixed,
+  listFontSize,
+} = storeToRefs(store);
 
 // 深浅模式
 const themeOptions = ref([
@@ -174,7 +207,7 @@ const saveSoreData = (name = null, open = false) => {
 
 // 重置数据
 const reset = () => {
-  if ($timeInterval) clearInterval($timeInterval);
+  if (typeof $timeInterval !== "undefined") clearInterval($timeInterval);
   localStorage.clear();
   location.reload();
 };
@@ -212,6 +245,7 @@ const reset = () => {
 
         .tip {
           font-size: 12px;
+          border-radius: 8px;
         }
       }
 

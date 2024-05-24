@@ -1,5 +1,4 @@
 // 全局样式
-
 * {
   margin: 0;
   padding: 0;
@@ -11,4 +10,15 @@ html,
 body,
 #app {
   height: 100%;
+}
+
+// 动画
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }

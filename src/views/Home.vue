@@ -15,7 +15,7 @@
         :key="item"
         :style="{ animationDelay: index / 10 + 0.2 + 's' }"
       >
-        <HotList :hotType="item.value" />
+        <HotList :hotData="item" />
       </n-grid-item>
     </n-grid>
     <div class="error" v-else>

@@ -7,12 +7,12 @@
         class="tag"
         v-for="item in store.newsArr.filter((item) => item.show)"
         :key="item"
-        :type="item.value === listType ? 'primary' : 'default'"
-        @click="changeType(item.value)"
+        :type="item.name === listType ? 'primary' : 'default'"
+        @click="changeType(item.name)"
       >
         {{ item.label }}
         <template #avatar>
-          <img :src="`/logo/${item.value}.png`" alt="logo" class="logo" />
+          <img :src="`/logo/${item.name}.png`" alt="logo" class="logo" />
         </template>
       </n-tag>
     </n-space>
@@ -131,7 +131,7 @@ const store = mainStore();
 
 const updateTime = ref(null);
 const listType = ref(
-  router.currentRoute.value.query.type || store.newsArr[0].value
+  router.currentRoute.value.query.type || store.newsArr[0].name
 );
 const pageNumber = ref(
   router.currentRoute.value.query.page
@@ -141,9 +141,10 @@ const pageNumber = ref(
 const listData = ref(null);
 
 // 获取热榜数据
-const getHotListsData = (type, isNew = false) => {
+const getHotListsData = async (name, isNew = false) => {
   listData.value = null;
-  getHotLists(type, isNew).then((res) => {
+  const item = store.newsArr.find((item) => item.name == name)
+  getHotLists(item.name, isNew, item.params).then((res) => {
     console.log(res);
     if (res.code === 200) {
       listData.value = res;
