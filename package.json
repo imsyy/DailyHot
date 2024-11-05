@@ -3,7 +3,7 @@
   "description": "今日热榜",
   "author": "imsyy",
   "github": "https://github.com/imsyy",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -12,24 +12,24 @@
   },
   "dependencies": {
     "@icon-park/vue-next": "^1.4.2",
-    "@jridgewell/sourcemap-codec": "^1.4.15",
-    "axios": "^1.6.8",
+    "@jridgewell/sourcemap-codec": "^1.5.0",
+    "axios": "^1.7.7",
     "lunar-calendar": "^0.1.4",
-    "pinia": "^2.1.7",
-    "pinia-plugin-persistedstate": "^3.2.1",
-    "sass": "^1.74.1",
+    "pinia": "^2.2.6",
+    "pinia-plugin-persistedstate": "^3.2.3",
+    "sass": "^1.80.6",
     "scrollreveal": "^4.0.9",
-    "terser": "^5.30.3",
-    "vue": "^3.4.21",
-    "vue-router": "^4.3.0",
+    "terser": "^5.36.0",
+    "vue": "^3.5.12",
+    "vue-router": "^4.4.5",
     "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.6.2",
-    "naive-ui": "^2.38.1",
+    "naive-ui": "^2.40.1",
     "unplugin-auto-import": "^0.12.2",
     "unplugin-vue-components": "^0.22.12",
-    "vite": "^4.5.3",
+    "vite": "^4.5.5",
     "vite-plugin-pwa": "^0.14.7"
   }
 }
